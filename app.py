@@ -1,5 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, json
 app = Flask(__name__)
+
+
+headers = {'Authorization': 'Key <05c43077d120435790bb065d7a434e34>'}
+
 
 @app.route('/')
 def home():
@@ -15,7 +19,22 @@ def study_image():
     # example we covered in the slides! 
 
     # YOUR CODE HERE!
-    
+    data ={"inputs": [
+      {
+        "data": {
+          "image": {
+            "url": image_url
+          }
+        }
+      }
+    ]}
+
+
+
+
+
+    api_url = "https://api.clarifai.com/v2/models/aaa03c23b3724a16a56b629203edc62c/outputs"
+    response = requests.post(api_url, headers=headers, data=json.dumps(data))
     return render_template('home.html', results="No results yet :(")
 
 if __name__ == '__main__':
